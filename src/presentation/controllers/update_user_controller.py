@@ -1,4 +1,5 @@
 from src.domain.use_cases.update_user import UpdateUserUseCaseInterface
+from src.main.settings.config import pwd_context
 from src.presentation.schemas.user import UserOut
 
 
@@ -7,5 +8,10 @@ class UpdateUserController:
         self.__use_case = use_case
 
     def handle(self, email, user) -> UserOut | None:
+        if hasattr(user, "password") and user.password:
+            user.password = self.__get_password_hash(user.password)
         response = self.__use_case.execute(email, user)
         return response
+
+    def __get_password_hash(self, password):
+        return pwd_context.hash(password)
