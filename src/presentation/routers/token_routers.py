@@ -10,7 +10,7 @@ from src.presentation.composers.authenticate_user_composer import (
 )
 from src.presentation.schemas.token import TokenOut
 
-router = APIRouter(prefix="/token")
+router = APIRouter(prefix="/token", tags=["token"])
 
 
 @router.post("/", status_code=status.HTTP_200_OK, response_model=TokenOut)
