@@ -8,8 +8,8 @@ class UpdateUserController:
         self.__use_case = use_case
 
     def handle(self, email, user) -> UserOut | None:
-        if hasattr(user, "password") and user.password:
-            user.password = self.__get_password_hash(user.password)
+        if "password" in user and user["password"]:
+            user["password"] = self.__get_password_hash(user["password"])
         response = self.__use_case.execute(email, user)
         return response
 
