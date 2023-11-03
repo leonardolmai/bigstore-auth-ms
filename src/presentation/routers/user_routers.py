@@ -14,6 +14,7 @@ from src.presentation.composers.delete_user_composer import (
 from src.presentation.composers.get_authenticated_user_composer import (
     get_authenticated_user_composer,
 )
+from src.presentation.composers.list_users_composer import list_users_composer
 from src.presentation.composers.update_user_composer import (
     update_user_composer,
 )
@@ -28,7 +29,8 @@ def list_users(
     session: Session = Depends(get_db),
 ):
     user: UserOut = get_authenticated_user_composer(session, token)
-    if user:
+    users = list_users_composer(session)
+    if users:
         return [user]
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found.")
 
