@@ -1,22 +1,24 @@
 from unittest.mock import Mock
 
 from src.domain.entities.user import User
-from src.domain.use_cases.create_user import CreateUserUseCaseInterface
-from src.domain.use_cases.delete_user import DeleteUserUseCaseInterface
-from src.domain.use_cases.get_user import GetUserUseCaseInterface
-from src.domain.use_cases.list_users import ListUsersUseCaseInterface
-from src.domain.use_cases.update_user import UpdateUserUseCaseInterface
-from src.presentation.controllers.create_user_controller import (
+from src.domain.use_cases.user.create_user import CreateUserUseCaseInterface
+from src.domain.use_cases.user.delete_user import DeleteUserUseCaseInterface
+from src.domain.use_cases.user.get_user import GetUserUseCaseInterface
+from src.domain.use_cases.user.list_users import ListUsersUseCaseInterface
+from src.domain.use_cases.user.update_user import UpdateUserUseCaseInterface
+from src.presentation.controllers.user.create_user_controller import (
     CreateUserController,
 )
-from src.presentation.controllers.delete_user_controller import (
+from src.presentation.controllers.user.delete_user_controller import (
     DeleteUserController,
 )
-from src.presentation.controllers.get_user_controller import GetUserController
-from src.presentation.controllers.list_users_controller import (
+from src.presentation.controllers.user.get_user_controller import (
+    GetUserController,
+)
+from src.presentation.controllers.user.list_users_controller import (
     ListUsersController,
 )
-from src.presentation.controllers.update_user_controller import (
+from src.presentation.controllers.user.update_user_controller import (
     UpdateUserController,
 )
 from tests.utils.test_case_controller import TestCaseControllerBase

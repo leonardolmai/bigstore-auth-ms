@@ -6,23 +6,23 @@ from sqlalchemy.orm import Session
 
 from src.infrastructure.database.settings.db_connection import get_db
 from src.main.settings.config import oauth2_scheme
-from src.presentation.composers.create_company_composer import (
+from src.presentation.composers.company.create_company_composer import (
     create_company_composer,
 )
-from src.presentation.composers.delete_company_composer import (
+from src.presentation.composers.company.delete_company_composer import (
     delete_company_composer,
 )
-from src.presentation.composers.get_authenticated_user_composer import (
-    get_authenticated_user_composer,
-)
-from src.presentation.composers.get_company_composer import (
+from src.presentation.composers.company.get_company_composer import (
     get_company_composer,
 )
-from src.presentation.composers.list_companies_composer import (
+from src.presentation.composers.company.list_companies_composer import (
     list_companies_composer,
 )
-from src.presentation.composers.update_company_composer import (
+from src.presentation.composers.company.update_company_composer import (
     update_company_composer,
+)
+from src.presentation.composers.user.get_authenticated_user_composer import (
+    get_authenticated_user_composer,
 )
 from src.presentation.schemas.company import (
     CompanyCreate,

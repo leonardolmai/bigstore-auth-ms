@@ -1,23 +1,31 @@
 from unittest.mock import Mock
 
-from src.domain.use_cases.create_company import CreateCompanyUseCaseInterface
-from src.domain.use_cases.delete_company import DeleteCompanyUseCaseInterface
-from src.domain.use_cases.get_company import GetCompanyUseCaseInterface
-from src.domain.use_cases.list_companies import ListCompaniesUseCaseInterface
-from src.domain.use_cases.update_company import UpdateCompanyUseCaseInterface
-from src.presentation.controllers.create_company_controller import (
+from src.domain.use_cases.company.create_company import (
+    CreateCompanyUseCaseInterface,
+)
+from src.domain.use_cases.company.delete_company import (
+    DeleteCompanyUseCaseInterface,
+)
+from src.domain.use_cases.company.get_company import GetCompanyUseCaseInterface
+from src.domain.use_cases.company.list_companies import (
+    ListCompaniesUseCaseInterface,
+)
+from src.domain.use_cases.company.update_company import (
+    UpdateCompanyUseCaseInterface,
+)
+from src.presentation.controllers.company.create_company_controller import (
     CreateCompanyController,
 )
-from src.presentation.controllers.delete_company_controller import (
+from src.presentation.controllers.company.delete_company_controller import (
     DeleteCompanyController,
 )
-from src.presentation.controllers.get_company_controller import (
+from src.presentation.controllers.company.get_company_controller import (
     GetCompanyController,
 )
-from src.presentation.controllers.list_companies_controller import (
+from src.presentation.controllers.company.list_companies_controller import (
     ListCompaniesController,
 )
-from src.presentation.controllers.update_company_controller import (
+from src.presentation.controllers.company.update_company_controller import (
     UpdateCompanyController,
 )
 from tests.utils.test_case_controller import TestCaseControllerBase

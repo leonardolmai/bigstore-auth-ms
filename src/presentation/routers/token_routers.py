@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database.settings.db_connection import get_db
-from src.presentation.composers.authenticate_user_composer import (
+from src.presentation.composers.user.authenticate_user_composer import (
     authenticate_user_composer,
 )
 from src.presentation.schemas.token import TokenOut

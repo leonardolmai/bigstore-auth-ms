@@ -5,17 +5,19 @@ from sqlalchemy.orm import Session
 
 from src.infrastructure.database.settings.db_connection import get_db
 from src.main.settings.config import oauth2_scheme
-from src.presentation.composers.create_user_composer import (
+from src.presentation.composers.user.create_user_composer import (
     create_user_composer,
 )
-from src.presentation.composers.delete_user_composer import (
+from src.presentation.composers.user.delete_user_composer import (
     delete_user_composer,
 )
-from src.presentation.composers.get_authenticated_user_composer import (
+from src.presentation.composers.user.get_authenticated_user_composer import (
     get_authenticated_user_composer,
 )
-from src.presentation.composers.list_users_composer import list_users_composer
-from src.presentation.composers.update_user_composer import (
+from src.presentation.composers.user.list_users_composer import (
+    list_users_composer,
+)
+from src.presentation.composers.user.update_user_composer import (
     update_user_composer,
 )
 from src.presentation.schemas.user import UserCreate, UserOut, UserUpdate
