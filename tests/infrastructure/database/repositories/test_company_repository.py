@@ -2,6 +2,7 @@ from src.infrastructure.database.models.company import Company as CompanyModel
 from src.infrastructure.database.repositories.company_repository import (
     CompanyRepository,
 )
+from tests.factories.factories import CompanyFactory
 from tests.utils.test_case_repository import TestCaseRepositoryBase
 
 
@@ -68,10 +69,13 @@ class TestCompanyRepository(TestCaseRepositoryBase):
         self.assertIsNone(result)
 
     def test_create_company_returns_company(self):
+        company_data = CompanyFactory()
+
         company_data = {
-            "name": "Company",
-            "cnpj": "987654321",
-            "website": "company.com",
+            "name": company_data.name,
+            "cnpj": company_data.cnpj,
+            "website": company_data.website,
+            "owner_id": company_data.owner.id,
         }
         result = self.repo.create_company(CompanyModel(**company_data), owner_id=1)
 

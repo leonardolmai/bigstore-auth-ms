@@ -1,7 +1,9 @@
+# pylint:disable=duplicate-code
 from src.infrastructure.database.models.user import User as UserModel
 from src.infrastructure.database.repositories.user_repository import (
     UserRepository,
 )
+from tests.factories.factories import UserFactory
 from tests.utils.test_case_repository import TestCaseRepositoryBase
 
 
@@ -32,16 +34,19 @@ class TestUserRepository(TestCaseRepositoryBase):
         self.assertIsNone(result)
 
     def test_get_user_return_user(self):
-        user = {
-            "id": 1,
-            "name": "User 1",
-            "email": "user1@example.com",
-        }
+        user = UserFactory()
+
+        # user = {
+        #     "id": 1,
+        #     "name": "User 1",
+        #     "email": "user1@example.com",
+        # }
         self.session_mock.query.return_value.filter.return_value.one_or_none.return_value = (
             user
         )
 
-        result = self.repo.get_user("user1@example.com")
+        # result = self.repo.get_user("user1@example.com")
+        result = self.repo.get_user(user.email)
 
         self.session_mock.query.return_value.filter.return_value.one_or_none.assert_called_once()
         self.assertEqual(result, user)
