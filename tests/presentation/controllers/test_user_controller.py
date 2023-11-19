@@ -72,7 +72,12 @@ class TestUserController(TestCaseControllerBase):
         update_user_use_case_mock = Mock(spec=UpdateUserUseCaseInterface)
         update_user_controller = UpdateUserController(update_user_use_case_mock)
 
-        user_data = {"id": 1, "name": "User 1", "email": "user1@example.com"}
+        user_data = {
+            "id": 1,
+            "name": "User 1",
+            "email": "user1@example.com",
+            "password": "123",
+        }
         update_user_use_case_mock.execute.return_value = user_data
 
         result = update_user_controller.handle("user1@example.com", user_data)
