@@ -1,45 +1,39 @@
+# pylint: disable=unused-argument
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database.settings.db_connection import get_db
-from src.main.settings.config import oauth2_scheme
 from src.presentation.composers.company.create_company_composer import (
     create_company_composer,
 )
 from src.presentation.composers.company.delete_company_composer import (
     delete_company_composer,
 )
-from src.presentation.composers.company.get_company_composer import (
-    get_company_composer,
-)
+from src.presentation.composers.company.get_company_composer import get_company_composer
 from src.presentation.composers.company.list_companies_composer import (
     list_companies_composer,
 )
 from src.presentation.composers.company.update_company_composer import (
     update_company_composer,
 )
-from src.presentation.composers.user.get_authenticated_user_composer import (
-    get_authenticated_user_composer,
-)
-from src.presentation.schemas.company import (
-    CompanyCreate,
-    CompanyOut,
-    CompanyUpdate,
-)
+from src.presentation.dependencies.get_current_user import get_current_user
+from src.presentation.schemas.company import CompanyCreate, CompanyOut, CompanyUpdate
+from src.presentation.schemas.user import UserOut
 
 router = APIRouter(prefix="/companies", tags=["companies"])
 
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[CompanyOut])
 def list_companies(
-    token: Annotated[str, Depends(oauth2_scheme)],
+    x_company_cnpj: Annotated[str, Header()],
+    current_user: UserOut = Depends(get_current_user),
+    # current_company: CompanyOut = Depends(get_current_company),
     session: Session = Depends(get_db),
 ):
-    user: CompanyOut = get_authenticated_user_composer(session, token)
-    if user:
+    if current_user:
         companies = list_companies_composer(session)
         if companies:
             return companies
@@ -51,11 +45,11 @@ def list_companies(
 @router.get("/{id}", status_code=status.HTTP_200_OK, response_model=CompanyOut)
 def get_company(
     id: int,
-    token: Annotated[str, Depends(oauth2_scheme)],
+    x_company_cnpj: Annotated[str, Header()],
+    current_user: UserOut = Depends(get_current_user),
     session: Session = Depends(get_db),
 ):
-    user = get_authenticated_user_composer(session, token)
-    if user:
+    if current_user:
         company = get_company_composer(session, id)
         if company:
             return company
@@ -67,10 +61,10 @@ def get_company(
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=CompanyOut)
 def create_company(
     company: CompanyCreate,
-    token: Annotated[str, Depends(oauth2_scheme)],
+    x_company_cnpj: Annotated[str, Header()],
+    current_user: UserOut = Depends(get_current_user),
     session: Session = Depends(get_db),
 ):
-    current_user = get_authenticated_user_composer(session, token)
     company.website = jsonable_encoder(company.website)
     if current_user:
         company = create_company_composer(session, company, current_user.id)
@@ -85,13 +79,13 @@ def create_company(
 def update_company(
     id: int,
     company: CompanyUpdate,
-    token: Annotated[str, Depends(oauth2_scheme)],
+    x_company_cnpj: Annotated[str, Header()],
+    current_user: UserOut = Depends(get_current_user),
     session: Session = Depends(get_db),
 ):
     if company.website:
         company.website = jsonable_encoder(company.website)
     company = company.model_dump(exclude_unset=True)
-    current_user = get_authenticated_user_composer(session, token)
     if current_user:
         company = update_company_composer(session, id, company)
         if company:
@@ -103,10 +97,10 @@ def update_company(
 
 @router.delete("/", status_code=status.HTTP_204_NO_CONTENT)
 def delete_company(
-    token: Annotated[str, Depends(oauth2_scheme)],
+    x_company_cnpj: Annotated[str, Header()],
+    current_user: UserOut = Depends(get_current_user),
     session: Session = Depends(get_db),
 ):
-    current_user = get_authenticated_user_composer(session, token)
     if current_user:
         company = delete_company_composer(session, current_user.company.id)
     if company:
