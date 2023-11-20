@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
@@ -16,9 +16,10 @@ router = APIRouter(prefix="/token", tags=["token"])
 @router.post("/", status_code=status.HTTP_200_OK, response_model=TokenOut)
 async def login(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    x_company_cnpj: Annotated[str | None, Header()] = None,
     session: Session = Depends(get_db),
 ):
-    token = authenticate_user_composer(session, form_data)
+    token = authenticate_user_composer(session, form_data, x_company_cnpj)
     if token:
         return token
     raise HTTPException(
