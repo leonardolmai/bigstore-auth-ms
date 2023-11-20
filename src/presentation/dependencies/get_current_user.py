@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from src.infrastructure.database.settings.db_connection import get_db
@@ -14,6 +14,8 @@ def get_current_user(
 ):
     current_user = get_authenticated_user_composer(session, token)
     if current_user is None:
-        raise HTTPException(status_code=401, detail="Unauthorized")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized"
+        )
 
     return current_user
