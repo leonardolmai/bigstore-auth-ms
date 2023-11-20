@@ -27,6 +27,16 @@ class CompanyRepository(CompanyRepositoryInterface):
         except:
             return None
 
+    def get_company_by_cnpj(self, cnpj: str) -> Company | None:
+        try:
+            return (
+                self.session.query(CompanyModel)
+                .filter(CompanyModel.cnpj == cnpj)
+                .one_or_none()
+            )
+        except:
+            return None
+
     def create_company(self, company: Company, owner_id: int) -> Company | None:
         try:
             company_data = {

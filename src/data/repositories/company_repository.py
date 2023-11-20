@@ -14,6 +14,10 @@ class CompanyRepositoryInterface(ABC):
         pass
 
     @abstractmethod
+    def get_company_by_cnpj(self, cnpj: str) -> Company | None:
+        pass
+
+    @abstractmethod
     def create_company(self, company: Company, owner_id: int) -> Company | None:
         pass
 
