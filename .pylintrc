@@ -3,6 +3,12 @@
 disable=
     C0114, # Missing module docstring
     C0116, # Missing function or method docstring
+    C0115, # Missing class docstring
+    W0221, # arguments-differ
+    W0622, # Redefining built-in
+    W0702, # No exception type(s) specified
+    R0903, # Too few public methods
+    R0913, # Too many arguments
 
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
