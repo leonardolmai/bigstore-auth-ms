@@ -12,3 +12,4 @@ omit =
     src/presentation/dependencies/*
     src/presentation/middlewares/*
     src/presentation/schemas/*
+    src/presentation/routers/*
