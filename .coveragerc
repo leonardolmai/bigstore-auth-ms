@@ -1,0 +1,15 @@
+[run]
+source = src
+omit =
+    src/data/repositories/*
+    src/data/use_cases/*
+    src/domain/entities/*
+    src/domain/use_cases/*
+    src/infrastructure/database/settings/*
+    src/main/*
+    src/presentation/adapters/*
+    src/presentation/composers/*
+    src/presentation/dependencies/*
+    src/presentation/middlewares/*
+    src/presentation/schemas/*
+    src/presentation/routers/*
